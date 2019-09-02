@@ -22,6 +22,18 @@ You should see some logs that inform  you where the SQLite database has been cre
 
 Here you can create users by filling in User information and see the details of all existing users in a list. 
 
+### Uninstall
+
+To uninstall the softwarte simply issue 
+
+```
+pip uninstall mini_admin
+```
+
+from within the environment where it was installed. Unfortunately, the database is not removed automatically, so please remove it manually. It lives in the home folder in `~/.mini_admin/admin.db`.
+
+
+
 ## Development
 
 Developing the application requires a few dependencies:
