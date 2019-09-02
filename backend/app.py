@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, send_from_directory
+from flask import Flask, request, render_template, send_from_directory, abort, Response
 from flask.cli import FlaskGroup
 from flask_cors import CORS
 from pony.flask import Pony
@@ -27,11 +27,9 @@ def create_app():
 	def handle_500(error):
 		return render_template('500.html'), 500
 
-	
 	@app.route('/admin')
 	def serve_admin():
 		return send_from_directory(app.static_folder, 'index.html')
-
 
 	@app.route('/user', methods=['GET', 'POST'])
 	def user():
@@ -42,7 +40,6 @@ def create_app():
 		if request.method == 'POST':
 			try:
 				body = request.json
-				# TODO: check body catch errors (let the ORM handle the validation)
 				with db_session:
 					u = User(
 						first_name = body['first_name'],
@@ -56,6 +53,7 @@ def create_app():
 					return dict(data=u.dictify())
 			except Exception as err:
 				app.logger.error('Error creating user object:', err)
+				abort(Response('Could not create user object in database.'))
 
 	return app
 
