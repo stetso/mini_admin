@@ -85,6 +85,10 @@ def create_app():
 						)
 					db.commit()
 					return dict(data=u.dictify())
+
+			except ValueError as err:
+				app.logger.error('Some requirements for user fields are violated:', err)
+				abort(Response('Error: Properties for user object invalid'))
 			except Exception as err:
 				app.logger.error('Error creating user object:', err)
 				abort(Response('Error: Could not create user object in database.'))

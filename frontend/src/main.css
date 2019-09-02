@@ -42,7 +42,7 @@
 }
 
 .list-box li {
- @apply mb-1 px-2 py-1
+ @apply mb-1 px-2 py-1 .cursor-pointer
 }
 
 .selected-list-item {
@@ -51,6 +51,10 @@
 
 .user-info-box {
   @apply bg-gray-700 text-white rounded-sm mt-3 px-2 py-2 h-auto
+}
+
+.invalid {
+  @apply border-red-700
 }
 
 h3 {

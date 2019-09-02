@@ -28,7 +28,7 @@
       const response = await userApi.get();
       users = response.data;
     } catch (err) {
-      console.log('SOmething went wrong fetching users:', err);
+      console.log('Something went wrong fetching users:', err);
     }
   }
 
@@ -85,7 +85,11 @@
     inputUserName.trim() !== '' && inputUserName.length > 5;
   $: isInputStreetValid = inputUserName.trim() !== '' && inputStreet.length > 3;
   $: isInputCityValid = inputCity.trim() !== '' && inputCity.length > 2;
-  $: isInputZipValid = inputZip.trim() !== '' && inputZip.length > 3;
+  $: isInputZipValid =
+    inputZip.trim() !== '' &&
+    inputZip.length > 3 &&
+    inputZip.length <= 12 &&
+    inputZip.match(/^[0-9]+$/);
   $: isUserFormValid =
     isInputFirstNameValid &&
     isInputLastNameValid &&
@@ -136,6 +140,7 @@
         <label class="input-label" for="firstName">First Name</label>
         <input
           class="input"
+          class:invalid={!isInputFirstNameValid}
           id="firstName"
           bind:value={inputFirstName}
           type="text"
@@ -145,6 +150,7 @@
         <label class="input-label" for="lastName">Last Name</label>
         <input
           class="input"
+          class:invalid={!isInputLastNameValid}
           id="lastName"
           bind:value={inputLastName}
           type="text"
@@ -154,6 +160,7 @@
         <label class="input-label" for="userName">Username</label>
         <input
           class="input"
+          class:invalid={!isInputUserNameValid}
           id="userName"
           bind:value={inputUserName}
           type="text"
@@ -165,6 +172,7 @@
         <label class="input-label" for="streetName">Street</label>
         <input
           class="input"
+          class:invalid={!isInputStreetValid}
           id="streetName"
           bind:value={inputStreet}
           type="text"
@@ -174,6 +182,7 @@
         <label class="input-label" for="cityName">City</label>
         <input
           class="input"
+          class:invalid={!isInputCityValid}
           id="cityName"
           bind:value={inputCity}
           type="text"
@@ -183,6 +192,7 @@
         <label class="input-label" for="zipCode">Zip Code</label>
         <input
           class="input"
+          class:invalid={!isInputZipValid}
           id="zipCode"
           bind:value={inputZip}
           type="text"
