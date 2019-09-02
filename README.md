@@ -4,15 +4,31 @@ This is a small example application that allows the creation and viewing of user
 
 ## Installation and usage
 
+The application can be installed with `pip`. A Python version 3.5+ is recommended, although it may work with a lesser version (untested). If preferred create and activate a new [virtualenv](https://virtualenv.pypa.io/en/stable/) for the app.
 
+Get the latest version from the Releases page and unzip it at a location of you choice. A folder `mini_admin` is created. Now you can install the application using
+
+```
+pip install -e path/to/mini_admin
+```
+
+and afterwards start it from within your environment with
+
+```
+mini_admin run
+```
+
+You should see some logs that inform  you where the SQLite database has been created and instructions on how to access the admin interface. Then follow the instructions by navigating to `localhost:5000/admin` in your browser (it should be a reasonably recent browser, IE is probably not supported).
+
+Here you can create users by filling in User information and see the details of all existing users in a list. 
 
 ## Development
 
 Developing the application requires a few dependencies:
 
-- NodeJS and NPM
+- NodeJS (a recent LTS version will do) and NPM
 - Python 3.5+ and PIP
-- setting up a virtualenv is probably a good idea
+- setting up a [virtualenv](https://virtualenv.pypa.io/en/stable/) is probably a good idea
 
 Start by cloning the repository and navigating to the folder. All development packages are part of the Node ecosystem so install them with `npm install`.
 
