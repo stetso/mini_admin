@@ -26,9 +26,11 @@ def create_app():
 	CORS(app)
 
 	# initialize ORM
+	print(' * Initializing database...')
 	initialize_db()
 	Pony(app)
 
+	print(' * Setting up routes...')
 	# error pages
 	@app.errorhandler(404)
 	def handle_404(error):
@@ -93,9 +95,13 @@ def create_app():
 				app.logger.error('Error creating user object:', err)
 				abort(Response('Error: Could not create user object in database.'))
 
+	print("""
+	*** Please open: localhost:5000/admin in your browser. ***
+	""")
 	return app
 
 cli = FlaskGroup(create_app=create_app)
 
 if __name__ == '__main__':
 	cli()
+	

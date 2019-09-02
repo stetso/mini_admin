@@ -1,5 +1,6 @@
 from pony.orm import Database, Required, PrimaryKey, db_session, TransactionIntegrityError, perm
-from backend.config import config
+from backend.config import config, db_path
+import os
 
 db = Database()
 
@@ -8,6 +9,9 @@ def initialize_db():
 	Create database bindings (SQLite) and prepopulate some example data if empty.
 	"""
 	try:
+		if not os.path.exists(db_path):
+			print(' * Creating database in: {}'.format(db_path))
+			os.makedirs(db_path)
 		db.bind(**config['PONY'])
 		db.generate_mapping(create_tables=True)
 		with db.set_perms_for(User):
@@ -16,7 +20,7 @@ def initialize_db():
 			if User.select().first() is None:
 				populate_db()
 	except Exception as err:
-		print('Error binding to database:', err)
+		print('Error creating or binding to database:', err)
 
 def populate_db():
 	"""
