@@ -83,7 +83,8 @@ def create_app():
 						user_name=body['user_name'],
 						street = body['street'],
 						city = body['city'],
-						zip = body['zip']
+						zip = body['zip'],
+						telephone = body['telephone']
 						)
 					db.commit()
 					return dict(data=u.dictify())

@@ -20,6 +20,8 @@
   let isInputCityValid = false;
   let inputZip = '';
   let isInputZipValid = false;
+  let inputTelephone = '';
+  let isInputTelephoneValid = false;
 
   onMount(fetchUsers);
 
@@ -39,7 +41,8 @@
       user_name: inputUserName,
       street: inputStreet,
       city: inputCity,
-      zip: inputZip
+      zip: inputZip,
+      telephone: inputTelephone
     };
     try {
       const newUser = await userApi.post(user);
@@ -57,6 +60,7 @@
     inputStreet = '';
     inputZip = '';
     inputCity = '';
+    inputTelephone = '';
   }
 
   $: {
@@ -90,12 +94,18 @@
     inputZip.length > 3 &&
     inputZip.length <= 12 &&
     inputZip.match(/^[0-9]+$/);
+  $: isInputTelephoneValid =
+    inputTelephone.trim() !== '' &&
+    inputTelephone.length > 4 &&
+    inputTelephone.length <= 25 &&
+    inputTelephone.match(/^[0-9]+$/);
   $: isUserFormValid =
     isInputFirstNameValid &&
     isInputLastNameValid &&
     isInputUserNameValid & isInputStreetValid &&
     isInputCityValid &&
-    isInputZipValid;
+    isInputZipValid &&
+    inputTelephone;
 </script>
 
 <div class="widget">
@@ -128,6 +138,7 @@
             <p>
               Address: {selectedUser.street}, {selectedUser.zip} {selectedUser.city}
             </p>
+            <p>Telephone: {selectedUser.telephone}</p>
           </div>
         {/if}
       {/if}
@@ -197,6 +208,18 @@
           bind:value={inputZip}
           type="text"
           placeholder="Zip Code" />
+        <br />
+
+        <label class="input-label" for="telephone">
+          Telephone Number (numbers only)
+        </label>
+        <input
+          class="input"
+          class:invalid={!isInputTelephoneValid}
+          id="telephone"
+          bind:value={inputTelephone}
+          type="tel"
+          placeholder="Telephone Number" />
         <br />
       </form>
 

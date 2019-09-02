@@ -28,8 +28,8 @@ def populate_db():
 	"""
 	with db_session:
 		try:
-			u1 = User(first_name='John', last_name='Doe', user_name='j.doe', street='Example Street 1', city="Exampletown", zip="12345"),
-			u2 = User(first_name='Roberta', last_name='Foo', user_name='r.foo',  street='Another Street 12', city="Differentino", zip="54321"),
+			u1 = User(first_name='John', last_name='Doe', user_name='j.doe', street='Example Street 1', city="Exampletown", zip="12345", telephone="30298893"),
+			u2 = User(first_name='Roberta', last_name='Foo', user_name='r.foo',  street='Another Street 12', city="Differentino", zip="54321", telephone="987654321"),
 			db.commit()
 		except TransactionIntegrityError as err:
 			print('Error creating example users:', err)
@@ -43,6 +43,7 @@ class User(db.Entity):
 	street = Required(str,max_len=250)
 	city = Required(str, max_len=100)
 	zip = Required(str, max_len=12)
+	telephone = Required(str, max_len=25)
 
 	def dictify(self):
 		"""
@@ -56,5 +57,6 @@ class User(db.Entity):
 			user_name = self.user_name,
 			street = self.street,
 			city = self.city,
-			zip = self.zip
+			zip = self.zip,
+			telephone = self.telephone
 		)
