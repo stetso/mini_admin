@@ -4,22 +4,31 @@ from backend.config import config
 db = Database()
 
 def initialize_db():
-	db.bind(**config['PONY'])
-	db.generate_mapping(create_tables=True)
-	with db.set_perms_for(User):
-		perm('view edit delete create', group='anybody')
-	with db_session:
-		if User.select().first() is None:
-			populate_db()
+	"""
+	Create database bindings (SQLite) and prepopulate some example data if empty.
+	"""
+	try:
+		db.bind(**config['PONY'])
+		db.generate_mapping(create_tables=True)
+		with db.set_perms_for(User):
+			perm('view edit delete create', group='anybody')
+		with db_session:
+			if User.select().first() is None:
+				populate_db()
+	except Exception as err:
+		print('Error binding to database:', err)
 
 def populate_db():
+	"""
+	Simple sxample data to prepopulate in the database if it is empty.
+	"""
 	with db_session:
 		try:
 			u1 = User(first_name='John', last_name='Doe', user_name='j.doe', street='Example Street 1', city="Exampletown", zip="12345"),
 			u2 = User(first_name='Roberta', last_name='Foo', user_name='r.foo',  street='Another Street 12', city="Differentino", zip="54321"),
 			db.commit()
 		except TransactionIntegrityError as err:
-			print('DB ERROR', err)
+			print('Error creating example users:', err)
 
 
 class User(db.Entity):
@@ -32,6 +41,10 @@ class User(db.Entity):
 	zip = Required(str, max_len=12)
 
 	def dictify(self):
+		"""
+		Returns a simple dict-representation of the entity that can easily be JSON-
+		serialized by Flask on return.
+		"""
 		return dict(
 			id = self.id,
 			first_name = self.first_name,
