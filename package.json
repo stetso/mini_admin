@@ -33,7 +33,7 @@
   },
   "copyFiles": [
     {
-      "from": "backend/*.py",
+      "from": ["backend/**/*", "!backend/__pycache__/**/*"],
       "to": "dist/mini_admin/backend/"
     },
     {

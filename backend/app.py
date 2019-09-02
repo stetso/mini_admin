@@ -8,6 +8,7 @@ from backend.models import db, User, initialize_db
 def create_app():
 	app = Flask(
 		__name__,
+		template_folder='templates',
 		static_folder='../frontend/public',
 		static_url_path='/frontend/public'
 		)
@@ -17,6 +18,16 @@ def create_app():
 	initialize_db()
 	Pony(app)
 
+	# error pages
+	@app.errorhandler(404)
+	def handle_404(error):
+		return render_template('404.html'), 404
+
+	@app.errorhandler(500)
+	def handle_500(error):
+		return render_template('500.html'), 500
+
+	
 	@app.route('/admin')
 	def serve_admin():
 		return send_from_directory(app.static_folder, 'index.html')
