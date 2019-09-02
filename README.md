@@ -30,7 +30,7 @@ To uninstall the softwarte simply issue
 pip uninstall mini_admin
 ```
 
-from within the environment where it was installed. Unfortunately, the database is not removed automatically, so please remove it manually. It lives in the home folder in `~/.mini_admin/admin.db`.
+from within the environment where it was installed. Unfortunately, the database is currently not removed automatically, so you need to remove it by hand. It lives in the home folder in `~/.mini_admin/admin.db`.
 
 
 
