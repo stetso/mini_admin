@@ -6,7 +6,7 @@ This is a small example application that allows the creation and viewing of user
 
 The application can be installed with `pip`. A Python version 3.5+ is recommended, although it may work with a lesser version (untested). If preferred create and activate a new [virtualenv](https://virtualenv.pypa.io/en/stable/) for the app.
 
-Get the latest version from the Releases page and unzip it at a location of you choice. A folder `mini_admin` is created. Now you can install the application using
+Get the latest version from the [Releases page](https://github.com/stetso/mini_admin/releases) and unzip it at a location of you choice. A folder `mini_admin` is created. Now you can install the application using
 
 ```
 pip install -e path/to/mini_admin
