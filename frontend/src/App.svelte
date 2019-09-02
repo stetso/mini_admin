@@ -189,7 +189,7 @@
           placeholder="City" />
         <br />
 
-        <label class="input-label" for="zipCode">Zip Code</label>
+        <label class="input-label" for="zipCode">Zip Code (numbers only)</label>
         <input
           class="input"
           class:invalid={!isInputZipValid}
