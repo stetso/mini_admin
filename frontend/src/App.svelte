@@ -1,31 +1,35 @@
 <script>
-  import { onMount } from "svelte";
-  import { createApiCalls } from "./api";
-  const userApi = createApiCalls("user");
+  import { onMount } from 'svelte';
+  import { createApiCalls } from './api';
+  const userApi = createApiCalls('user');
 
   let users;
   let filteredUsers;
-  let searchText = "";
+  let searchText = '';
   let selectedUser = null;
 
-  let inputFirstName = "";
+  let inputFirstName = '';
   let isInputFirstNameValid = false;
-  let inputLastName = "";
+  let inputLastName = '';
   let isInputLastNameValid = false;
-  let inputUserName = "";
+  let inputUserName = '';
   let isInputUserNameValid = false;
-  let inputStreet = "";
+  let inputStreet = '';
   let isInputStreetValid = false;
-  let inputCity = "";
+  let inputCity = '';
   let isInputCityValid = false;
-  let inputZip = "";
+  let inputZip = '';
   let isInputZipValid = false;
 
   onMount(fetchUsers);
 
   async function fetchUsers() {
-    const response = await userApi.get();
-    users = response.data;
+    try {
+      const response = await userApi.get();
+      users = response.data;
+    } catch (err) {
+      console.log('SOmething went wrong fetching users:', err);
+    }
   }
 
   async function postUser() {
@@ -37,32 +41,36 @@
       city: inputCity,
       zip: inputZip
     };
-    const newUser = await userApi.post(user);
-    users = [...users, newUser.data];
-    clearFormInput();
+    try {
+      const newUser = await userApi.post(user);
+      users = [...users, newUser.data];
+      clearFormInput();
+    } catch (err) {
+      console.log('Something went wrong posting the user:', err);
+    }
   }
 
   function clearFormInput() {
-    inputFirstName = "";
-    inputLastName = "";
-    inputUserName = "";
-    inputStreet = "";
-    inputZip = "";
-    inputCity = "";
+    inputFirstName = '';
+    inputLastName = '';
+    inputUserName = '';
+    inputStreet = '';
+    inputZip = '';
+    inputCity = '';
   }
 
   $: {
     inputUserName =
-      inputFirstName !== "" && inputLastName !== ""
+      inputFirstName !== '' && inputLastName !== ''
         ? `${inputFirstName.toLowerCase()[0]}.${inputLastName.toLowerCase()}`
-        : "";
+        : '';
   }
 
   $: {
     if (users) {
       filteredUsers = users.filter(u => {
         const term = [u.first_name, u.last_name]
-          .join("")
+          .join('')
           .toLowerCase()
           .trim();
         return term.includes(searchText.toLowerCase());
@@ -71,13 +79,13 @@
   }
 
   $: isInputFirstNameValid =
-    inputFirstName.trim() !== "" && inputFirstName.length;
-  $: isInputLastNameValid = inputLastName.trim() !== "";
+    inputFirstName.trim() !== '' && inputFirstName.length;
+  $: isInputLastNameValid = inputLastName.trim() !== '';
   $: isInputUserNameValid =
-    inputUserName.trim() !== "" && inputUserName.length > 5;
-  $: isInputStreetValid = inputUserName.trim() !== "" && inputStreet.length > 3;
-  $: isInputCityValid = inputCity.trim() !== "" && inputCity.length > 2;
-  $: isInputZipValid = inputZip.trim() !== "" && inputZip.length > 3;
+    inputUserName.trim() !== '' && inputUserName.length > 5;
+  $: isInputStreetValid = inputUserName.trim() !== '' && inputStreet.length > 3;
+  $: isInputCityValid = inputCity.trim() !== '' && inputCity.length > 2;
+  $: isInputZipValid = inputZip.trim() !== '' && inputZip.length > 3;
   $: isUserFormValid =
     isInputFirstNameValid &&
     isInputLastNameValid &&
