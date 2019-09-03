@@ -9,7 +9,7 @@ The application can be installed with `pip`. A Python version 3.5+ is recommende
 Get the latest version from the [Releases page](https://github.com/stetso/mini_admin/releases) and unzip it at a location of you choice. A folder `mini_admin` is created. Now you can install the application using
 
 ```
-pip install path/to/mini_admin
+pip install -e path/to/mini_admin
 ```
 
 and afterwards start it from within your environment with
