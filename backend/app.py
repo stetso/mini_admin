@@ -1,4 +1,5 @@
 from flask import Flask, request, render_template, send_from_directory, abort, Response
+import logging
 from flask.cli import FlaskGroup
 from flask_cors import CORS
 from pony.flask import Pony
@@ -24,6 +25,10 @@ def create_app():
 		static_url_path='/frontend/public'
 		)
 	CORS(app)
+
+	# disable native startup logs of Flask
+	log = logging.getLogger('werkzeug')
+	log.setLevel(logging.ERROR)
 
 	# initialize ORM
 	print(' * Initializing database...')
