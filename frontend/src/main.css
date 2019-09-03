@@ -45,8 +45,8 @@
  @apply mb-1 px-2 py-1 .cursor-pointer
 }
 
-.selected-list-item {
-  @apply bg-gray-700 text-white rounded-sm overflow-x-scroll
+.selected {
+  @apply bg-gray-700 text-white rounded-sm
 }
 
 .user-info-box {

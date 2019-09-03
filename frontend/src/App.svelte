@@ -124,7 +124,7 @@
           {#each filteredUsers as u, userListIndex}
             <li
               on:click={() => (selectedUser = u)}
-              class:selected-list-item={u === selectedUser}
+              class:selected={selectedUser && u.id === selectedUser.id}
               key={u.id}>
               {u.first_name} {u.last_name}
             </li>
