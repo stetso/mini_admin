@@ -32,7 +32,15 @@ pip uninstall mini_admin
 
 from within the environment where it was installed. Unfortunately, the database is currently not removed automatically, so you need to remove it by hand. It lives in the home folder in `~/.mini_admin/admin.db`.
 
+## Todo and ideas
 
+This is not a production ready system, rather a stub that shows one approach to designing a modular administration application. Svelte applications are very small so they are perfectly suitable for a dashboard-like, widget-heavy application where multiple widgets can be developed independently and get their data through a REST-like API. Here, only a single one is shown. Additionally, Tailwind CSS allows for a very easy and succint way to style the entire application consistently. It works quite well with the modular component-heavy SPA architecture although scoped styles are an alternative as well.
+
+However, some things are missing and/or need to be improved:
+
+- unit tests in back- and frontend
+- better notification/messaging to the frontend about server-side
+- a production web-server (currently the built-in development server from Flask is used)
 
 ## Development
 
