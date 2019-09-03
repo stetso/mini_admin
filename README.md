@@ -41,6 +41,7 @@ However, some things are missing and/or need to be improved:
 - unit tests in back- and frontend - currently the application is relatively small but once it grows more complex, automated testing should be integrated
 - better notification/messaging to the frontend about server-side errors
 - a production web-server (currently the built-in development server from Flask is used)
+- proper logging to files
 
 ## Development
 
