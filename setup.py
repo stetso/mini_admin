@@ -11,7 +11,7 @@ setup(
     },
     install_requires =[
         "Flask==1.1.1",
-        "Flask-Cors==3.0.8",
+        "Flask-Cors==3.0.9",
         "pony==0.7.10"
     ]
 )
